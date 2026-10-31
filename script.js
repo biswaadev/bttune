@@ -413,7 +413,8 @@ function initDownloadFlow() {
       downloadBtn.style.color = '#052e16';
 
       // Trigger direct APK file download without page redirect or opening a new tab
-      const apkUrl = downloadBtn.getAttribute('data-apk-url') || 'https://github.com/biswaadev/bttune-android/releases/download/v6.1.3/BTTUNE-release.apk';
+      // Defaults directly to GitHub's perpetual latest release redirect: /releases/latest/download/BTTUNE-release.apk
+      const apkUrl = downloadBtn.getAttribute('data-apk-url') || 'https://github.com/biswaadev/bttune-android/releases/latest/download/BTTUNE-release.apk';
       
       const hiddenLink = document.createElement('a');
       hiddenLink.href = apkUrl;
