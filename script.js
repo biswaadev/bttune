@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScreenshotsCarousel();
   initCapabilitiesTabs();
   initAccordion();
+  initArchSelector();
   initDownloadFlow();
   initStickyBarAndFab();
   loadLiveDownloads();
@@ -75,6 +76,9 @@ async function checkLatestRelease() {
   const stickySub = document.getElementById('stickyMetaSub');
   const downloadBtn = document.getElementById('downloadBtn');
   const btnText = document.getElementById('btnText');
+  const sizeUniversal = document.getElementById('sizeUniversal');
+  const sizeArm64 = document.getElementById('sizeArm64');
+  const sizeArmv7 = document.getElementById('sizeArmv7');
 
   try {
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`);
@@ -82,32 +86,55 @@ async function checkLatestRelease() {
     const release = await res.json();
     
     // 1. Dynamic Version
-    const tagName = release.tag_name || "v6.1.3";
+    const tagName = release.tag_name || "v6.1.4";
     if (versionVal) versionVal.textContent = `${tagName} (Latest)`;
     if (heroBadge) heroBadge.textContent = `${tagName} Stable`;
 
-    // 2. Dynamic APK Asset & File Size
-    let formattedSize = "11.7 MB";
+    // 2. Dynamic APK Assets & Multi-Architecture File Sizes
+    let universalSize = "14.5 MB";
+    let arm64Size = "11.7 MB";
+    let armv7Size = "11.4 MB";
+
     if (release.assets && release.assets.length > 0) {
-      const apkAsset = release.assets.find(a => a.name.endsWith('.apk')) || release.assets[0];
-      
-      if (apkAsset) {
-        if (apkAsset.size && typeof apkAsset.size === 'number') {
-          const mb = (apkAsset.size / (1024 * 1024)).toFixed(1);
-          formattedSize = `${mb} MB`;
+      // Find each architecture APK
+      const universalAsset = release.assets.find(a => a.name === 'BTTUNE-release.apk') || release.assets[0];
+      const arm64Asset = release.assets.find(a => a.name.includes('arm64-v8a'));
+      const armv7Asset = release.assets.find(a => a.name.includes('armeabi-v7a'));
+
+      const formatMb = (bytes) => (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+
+      if (universalAsset && universalAsset.size) {
+        universalSize = formatMb(universalAsset.size);
+        const cardUni = document.querySelector('.arch-card[data-flavor="universal"]');
+        if (cardUni) cardUni.setAttribute('data-apk-url', universalAsset.browser_download_url);
+        if (downloadBtn && downloadBtn.getAttribute('data-apk-filename') === 'BTTUNE-release.apk') {
+          downloadBtn.setAttribute('data-apk-url', universalAsset.browser_download_url);
         }
-        if (apkAsset.browser_download_url && downloadBtn) {
-          downloadBtn.setAttribute('data-apk-url', apkAsset.browser_download_url);
-        }
+      }
+      if (arm64Asset && arm64Asset.size) {
+        arm64Size = formatMb(arm64Asset.size);
+        const card64 = document.querySelector('.arch-card[data-flavor="arm64"]');
+        if (card64) card64.setAttribute('data-apk-url', arm64Asset.browser_download_url);
+      }
+      if (armv7Asset && armv7Asset.size) {
+        armv7Size = formatMb(armv7Asset.size);
+        const cardV7 = document.querySelector('.arch-card[data-flavor="armv7"]');
+        if (cardV7) cardV7.setAttribute('data-apk-url', armv7Asset.browser_download_url);
       }
     }
 
-    if (sizeVal) sizeVal.textContent = formattedSize;
+    if (sizeUniversal) sizeUniversal.textContent = universalSize;
+    if (sizeArm64) sizeArm64.textContent = arm64Size;
+    if (sizeArmv7) sizeArmv7.textContent = armv7Size;
+
+    if (sizeVal) sizeVal.textContent = universalSize;
     if (btnText && (!downloadBtn.classList.contains('downloading'))) {
-      btnText.textContent = `Download APK (${formattedSize})`;
+      const activeCard = document.querySelector('.arch-card.active');
+      const activeName = activeCard ? activeCard.querySelector('.arch-name').textContent.replace(' Architecture', '') : 'Universal APK';
+      btnText.textContent = `Download ${activeName} (${universalSize})`;
     }
     if (stickySub) {
-      stickySub.textContent = `${tagName} • ${formattedSize}`;
+      stickySub.textContent = `${tagName} • ${universalSize}`;
     }
 
     // 3. Dynamic Android Requirement (Parsed from release notes or repo spec)
@@ -123,10 +150,56 @@ async function checkLatestRelease() {
   } catch (e) {
     console.warn("Could not dynamically fetch GitHub release metadata, using defaults:", e);
     // Safe fallbacks
-    if (versionVal) versionVal.textContent = "v6.1.3 (Latest)";
-    if (sizeVal) sizeVal.textContent = "11.7 MB";
+    if (versionVal) versionVal.textContent = "v6.1.4 (Latest)";
+    if (sizeVal) sizeVal.textContent = "14.5 MB";
     if (reqVal) reqVal.textContent = "Android 8.0+";
   }
+}
+
+/* --------------------------------------------------------------------------
+   ARCHITECTURE SELECTOR (Universal, ARM64, ARMv7)
+   -------------------------------------------------------------------------- */
+function initArchSelector() {
+  const archCards = document.querySelectorAll('.arch-card');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const btnText = document.getElementById('btnText');
+  const sizeVal = document.getElementById('appSizeVal');
+
+  if (!archCards.length || !downloadBtn) return;
+
+  archCards.forEach(card => {
+    card.addEventListener('click', () => {
+      // Deactivate siblings
+      archCards.forEach(c => {
+        c.classList.remove('active');
+        const icon = c.querySelector('.arch-check');
+        if (icon) icon.textContent = 'radio_button_unchecked';
+      });
+
+      // Activate clicked
+      card.classList.add('active');
+      const icon = card.querySelector('.arch-check');
+      if (icon) icon.textContent = 'check_circle';
+
+      const flavor = card.getAttribute('data-flavor');
+      const apkName = card.getAttribute('data-apk');
+      const apkUrl = card.getAttribute('data-apk-url') || `https://github.com/${GITHUB_REPO}/releases/latest/download/${apkName}`;
+      const cardSize = card.querySelector('.arch-size')?.textContent || '';
+      const cardTitle = card.querySelector('.arch-name')?.textContent || '';
+
+      // Update button target
+      downloadBtn.setAttribute('data-apk-url', apkUrl);
+      downloadBtn.setAttribute('data-apk-filename', apkName);
+
+      if (btnText && !downloadBtn.classList.contains('downloading')) {
+        const shortTitle = cardTitle.replace(' Architecture', '');
+        btnText.textContent = `Download ${shortTitle} (${cardSize})`;
+      }
+      if (sizeVal) {
+        sizeVal.textContent = cardSize;
+      }
+    });
+  });
 }
 
 /* --------------------------------------------------------------------------
@@ -415,10 +488,11 @@ function initDownloadFlow() {
       // Trigger direct APK file download without page redirect or opening a new tab
       // Defaults directly to GitHub's perpetual latest release redirect: /releases/latest/download/BTTUNE-release.apk
       const apkUrl = downloadBtn.getAttribute('data-apk-url') || 'https://github.com/biswaadev/bttune-android/releases/latest/download/BTTUNE-release.apk';
+      const apkFilename = downloadBtn.getAttribute('data-apk-filename') || 'BTTUNE-release.apk';
       
       const hiddenLink = document.createElement('a');
       hiddenLink.href = apkUrl;
-      hiddenLink.setAttribute('download', 'BTTUNE-release.apk');
+      hiddenLink.setAttribute('download', apkFilename);
       hiddenLink.style.display = 'none';
       document.body.appendChild(hiddenLink);
       hiddenLink.click();
@@ -435,8 +509,10 @@ function initDownloadFlow() {
         downloadBtn.style.backgroundColor = '';
         downloadBtn.style.color = '';
         btnIcon.textContent = 'cloud_download';
-        const currentSize = (document.getElementById('appSizeVal')?.textContent) || '11.7 MB';
-        btnText.textContent = `Download APK (${currentSize})`;
+        const currentSize = (document.getElementById('appSizeVal')?.textContent) || '14.5 MB';
+        const activeCard = document.querySelector('.arch-card.active');
+        const activeName = activeCard ? activeCard.querySelector('.arch-name').textContent.replace(' Architecture', '') : 'Universal APK';
+        btnText.textContent = `Download ${activeName} (${currentSize})`;
         progressWrapper.style.display = 'none';
         progressBarFill.style.width = '0%';
         progressPercent.textContent = '0%';
