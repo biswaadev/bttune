@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle, Plane, Texture, RenderTarget } from 'ogl';
 
 import './FlexCarousel.css';
@@ -1133,6 +1133,8 @@ export default function FlexCarousel({
       start();
     };
 
+    // ESCAPE-AWARE WHEEL LISTENER
+    // Allows natural page scroll when at beginning or end of carousel
     const onWheel = (e: WheelEvent) => {
       const s = settingsRef.current;
       if (!s || e.ctrlKey) return;
@@ -1142,9 +1144,20 @@ export default function FlexCarousel({
         dx = dy;
         dy = 0;
       }
+
+      const isVertical = Math.abs(dy) > Math.abs(dx);
+      const n = slots.length;
+
+      // In non-loop mode, let vertical scroll pass through naturally once reaching bounds
+      if (isVertical) {
+        if (activeIndex <= 0 && dy < 0) return;
+        if (activeIndex >= n - 1 && dy > 0) return;
+      }
+
       const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? height : 1;
       const horizontal = Math.abs(dx) > Math.abs(dy);
       if (!horizontal && !s.captureWheel) return;
+
       e.preventDefault();
       skipIntro();
       interactedAt = performance.now();

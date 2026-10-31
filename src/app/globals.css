@@ -10,12 +10,12 @@
   font-family: var(--font-inter);
 }
 
-/* Light weight, huge scale typography (not heavy bold, elegant whitespace style) */
+/* Regular / Balanced weights for Inter typography */
 .text-huge-display {
   font-size: clamp(3.5rem, 9.5vw, 8.5rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
-  font-weight: 300;
+  font-weight: 400;
   font-family: var(--font-inter);
 }
 
@@ -23,11 +23,11 @@
   font-size: clamp(2.5rem, 6.5vw, 5.5rem);
   line-height: 1;
   letter-spacing: -0.035em;
-  font-weight: 300;
+  font-weight: 400;
   font-family: var(--font-inter);
 }
 
-/* Subtle clean scrollbar without heavy boxes */
+/* Subtle clean scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
