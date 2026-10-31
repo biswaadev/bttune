@@ -3,9 +3,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://biswaadev.github.io"),
-  title: "BTTUNE - Modern, Ad-Free Music Streaming for Android",
+  title: "BTTUNE - Stream Music Without Limits",
   description:
-    "Download BTTUNE APK. High-performance, subscription-free music streaming app engineered with Jetpack Compose, 8D Spatial DSP audio, syllable lyrics sync, and offline cache. Zero ads, zero telemetry.",
+    "Open-source, subscription-free music streaming client engineered with Jetpack Compose, 8D Spatial DSP audio, syllable lyrics sync, and offline cache. Zero ads, zero telemetry.",
   keywords: [
     "BTTUNE",
     "BTTUNE APK",
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     "Free Music Streaming",
     "Ad-free Music App",
     "Open Source Music Player",
-    "Material 3",
     "Jetpack Compose",
     "Offline Music Player",
     "Biswajit Tanti",
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://biswaadev.github.io/bttune/",
     title: "BTTUNE - Free Ad-Free Music Streaming Client for Android",
     description:
-      "Download official BTTUNE APK for Android. Jetpack Compose & Material 3, Syllable Lyrics Sync, Studio Audio Quality, and Offline Cache.",
+      "Download official BTTUNE APK for Android. Jetpack Compose, Syllable Lyrics Sync, Studio Audio Quality, and Offline Cache.",
     images: [
       {
         url: "/assets/og-image.png",
@@ -43,7 +42,7 @@ export const metadata: Metadata = {
     creator: "@biswaadev",
     title: "BTTUNE - Free Ad-Free Music Streaming Client for Android",
     description:
-      "Download official BTTUNE APK for Android. Jetpack Compose & Material 3, Syllable Lyrics Sync, Studio Audio Quality, and Offline Cache.",
+      "Download official BTTUNE APK for Android. Jetpack Compose, Syllable Lyrics Sync, Studio Audio Quality, and Offline Cache.",
     images: ["/assets/og-image.png"],
   },
   icons: {
@@ -92,11 +91,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* DM Sans Font Family & Google Sans */}
+        {/* Inter Font Family */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet"
         />
         <script
@@ -106,7 +105,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased overflow-x-hidden font-dmsans selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-black">
+      <body className="antialiased overflow-x-hidden font-inter selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-black">
         {children}
       </body>
     </html>
