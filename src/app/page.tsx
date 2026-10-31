@@ -704,12 +704,13 @@ export default function RedesignedLanding() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {TEAM_MEMBERS.map((member, idx) => (
             <div key={idx} className="space-y-4">
-              <div className="w-14 h-14 rounded-full overflow-hidden grayscale">
+              <div className="w-14 h-14 rounded-full overflow-hidden bg-neutral-900 border border-neutral-800">
                 <Image
                   src={member.avatar}
                   alt={member.name}
                   width={56}
                   height={56}
+                  unoptimized
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -789,14 +790,22 @@ export default function RedesignedLanding() {
           FOOTER
           ========================================================================= */}
       <footer className="py-20 px-8 border-t border-white/5 text-xs font-normal text-neutral-500">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>BTTUNE • Open source YouTube Music streaming for Android</div>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <span className="text-neutral-400 font-medium">BTTUNE</span>
+            <span className="hidden sm:inline text-neutral-700">•</span>
+            <span>© 2026 Biswajit Tanti & BTTUNE Contributors. All rights reserved.</span>
+          </div>
+
           <div className="flex items-center gap-8">
             <a href={APP_CONFIG.repoUrl} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-300 transition">
               GitHub
             </a>
             <a href={APP_CONFIG.releasesUrl} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-300 transition">
               Releases
+            </a>
+            <a href="https://github.com/biswaadev/bttune-android/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-300 transition">
+              GPL-3.0 License
             </a>
             <a href={APP_CONFIG.authorUrl} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-300 transition">
               Biswajit Tanti
