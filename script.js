@@ -253,6 +253,18 @@ function initDownloadFlow() {
 
   if (!downloadBtn || !progressWrapper) return;
 
+  // Also bind all .direct-download-trigger buttons (like Hero button)
+  const directTriggers = document.querySelectorAll('.direct-download-trigger');
+  directTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      downloadBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        downloadBtn.click();
+      }, 400);
+    });
+  });
+
   downloadBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -299,15 +311,16 @@ function initDownloadFlow() {
       downloadBtn.style.backgroundColor = '#4ade80';
       downloadBtn.style.color = '#052e16';
 
-      // Trigger actual APK file download
+      // Trigger direct APK file download without page redirect or opening a new tab
       const apkUrl = downloadBtn.getAttribute('data-apk-url') || 'https://github.com/biswaadev/bttune-android/releases/download/v6.1.3/BTTUNE-release.apk';
+      
       const hiddenLink = document.createElement('a');
       hiddenLink.href = apkUrl;
-      hiddenLink.setAttribute('download', 'BTTUNE-v6.1.3.apk');
-      hiddenLink.target = '_blank';
+      hiddenLink.setAttribute('download', 'BTTUNE-release.apk');
+      hiddenLink.style.display = 'none';
       document.body.appendChild(hiddenLink);
       hiddenLink.click();
-      document.body.removeChild(hiddenLink);
+      setTimeout(() => document.body.removeChild(hiddenLink), 1000);
 
       // Reset button state after 6 seconds
       setTimeout(() => {
