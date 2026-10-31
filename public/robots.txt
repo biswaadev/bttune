@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biswaadev.github.io/bttune/sitemap.xml
+Sitemap: https://biswaadev.github.io/bttune/sitemap.txt

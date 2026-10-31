@@ -1,0 +1,22 @@
+{
+  "name": "BTTUNE - Free Music Streaming",
+  "short_name": "BTTUNE",
+  "description": "High-Performance, Ad-Free YouTube Music Streaming Client for Android.",
+  "start_url": "https://biswaadev.github.io/bttune/",
+  "display": "standalone",
+  "background_color": "#141218",
+  "theme_color": "#141218",
+  "icons": [
+    {
+      "src": "assets/og-image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/bttune_logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
