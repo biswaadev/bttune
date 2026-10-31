@@ -720,6 +720,7 @@ code {
    ========================================================================== */
 .features-section {
   padding: 5rem 0;
+  background-color: var(--surface);
 }
 
 .section-header {
@@ -806,8 +807,7 @@ code {
    6. SCREENSHOTS CAROUSEL
    ========================================================================== */
 .screenshots-section {
-  padding: 4.5rem 0;
-  background-color: var(--surface);
+  padding: 5rem 0;
 }
 
 .carousel-container {
