@@ -465,11 +465,11 @@ code {
 }
 
 .phone-frame {
-  width: 295px;
-  height: 575px;
+  width: 285px;
+  height: 600px;
   background-color: #0b090e;
   border: 10px solid #2B2930;
-  border-radius: 44px;
+  border-radius: 40px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75),
               0 0 50px rgba(208, 188, 255, 0.16);
   position: relative;
@@ -479,40 +479,7 @@ code {
 }
 
 .speaker-notch {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 18px;
-  background-color: #1D1B20;
-  border-radius: 12px;
-  z-index: 20;
-}
-
-.phone-status-bar {
-  height: 38px;
-  padding: 8px 18px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 15;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.status-icons {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.status-ico {
-  font-size: 0.85rem;
+  display: none;
 }
 
 .screen-content {
@@ -520,6 +487,7 @@ code {
   position: relative;
   background-color: #121016;
   overflow: hidden;
+  border-radius: 28px;
 }
 
 .mockup-img {
@@ -528,6 +496,7 @@ code {
   object-fit: cover;
   object-position: top center;
   transition: transform 400ms ease;
+  display: block;
 }
 
 .phone-frame:hover .mockup-img {
@@ -726,9 +695,10 @@ code {
 
 .screen-img-box {
   width: 100%;
-  height: 420px;
+  height: 480px;
   background-color: #0d0c11;
   overflow: hidden;
+  position: relative;
 }
 
 .screen-img-box img {
@@ -737,6 +707,7 @@ code {
   object-fit: cover;
   object-position: top center;
   transition: transform 300ms ease;
+  display: block;
 }
 
 .screenshot-card:hover .screen-img-box img {
@@ -1771,7 +1742,7 @@ code {
 
   .phone-frame {
     width: 270px;
-    height: 520px;
+    height: 560px;
   }
 }
 
