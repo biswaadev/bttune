@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Primary Meta Tags -->
+  <title>BTTUNE - High-Performance, Ad-Free YouTube Music Streaming for Android</title>
+  <meta name="title" content="BTTUNE - High-Performance, Ad-Free YouTube Music Streaming Client">
+  <meta name="description" content="Open-source, subscription-free music streaming app engineered with Jetpack Compose, Kotlin Coroutines, 8D Spatial DSP audio, and syllable lyrics sync. Zero telemetry, zero ads.">
+  <meta name="theme-color" content="#141218">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/biswaadev/bttune-android">
+  <meta property="og:title" content="BTTUNE - High-Performance Ad-Free Music Streaming">
+  <meta property="og:description" content="Subscription-free music client for Android. Built with Jetpack Compose & Material 3. Studio 8D DSP audio, syllable-level lyrics, offline cache & zero trackers.">
+  <meta property="og:image" content="assets/ic_launcher-playstore.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="BTTUNE - Android Music Client">
+  <meta property="twitter:description" content="Native Android music client. Ad-free streaming, 8D spatial sound, synchronized lyrics, and offline playback.">
+  <meta property="twitter:image" content="assets/ic_launcher-playstore.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/bttune_logo.svg">
+
+  <!-- Google Fonts: Poppins & Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Material Symbols Outlined -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. Top App Bar (Sticky, Blurred, M3) -->
+  <header class="top-app-bar" id="topAppBar">
+    <div class="nav-container">
+      <a href="#" class="brand" aria-label="BTTUNE Home">
+        <img src="assets/bttune_logo.svg" alt="BTTUNE Logo" class="brand-logo-img">
+        <span class="brand-name">BTTUNE</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-links" id="navLinks" aria-label="Main Navigation">
+        <a href="#overview" class="nav-link">Overview</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#capabilities" class="nav-link">Capabilities</a>
+        <a href="#developers" class="nav-link">Team</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#download" class="nav-link nav-btn-mobile">Download APK</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/biswaadev/bttune-android" target="_blank" rel="noopener noreferrer" class="github-star-badge" aria-label="GitHub Repository">
+          <span class="material-symbols-outlined">star</span>
+          <span>GitHub</span>
+        </a>
+
+        <a href="#download" class="btn btn-filled nav-download-btn">
+          <span class="material-symbols-outlined">download</span>
+          <span>Download APK</span>
+        </a>
+
+        <!-- Hamburger Button for Mobile -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="material-symbols-outlined icon-menu">menu</span>
+          <span class="material-symbols-outlined icon-close">close</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-container">
+        <div class="hero-content reveal-on-scroll">
+          <div class="hero-badges">
+            <span class="m3-badge">
+              <span class="material-symbols-outlined badge-icon">verified</span>
+              <span id="heroReleaseBadge">v6.1.3 Stable Release</span>
+            </span>
+            <span class="m3-badge badge-secondary">
+              <span class="material-symbols-outlined badge-icon">balance</span>
+              GPL 3.0 Open Source
+            </span>
+          </div>
+
+          <h1 class="display-large hero-title">High-Performance, Ad-Free <span class="gradient-text">YouTube Music</span> Client for Android</h1>
+          
+          <p class="body-large hero-subtitle">
+            An open-source, subscription-free audio client engineered with <strong>Jetpack Compose</strong>, <strong>Kotlin Coroutines</strong>, and low-latency audio pipelines. Enjoy zero telemetry, synchronized syllable lyrics, and spatial 8D DSP acoustic processing.
+          </p>
+
+          <div class="hero-actions">
+            <!-- Primary Download Trigger -->
+            <a href="#download" class="btn btn-filled btn-large">
+              <span class="material-symbols-outlined">download</span>
+              <span>Download APK</span>
+            </a>
+            <!-- GitHub Releases Portal -->
+            <a href="https://github.com/biswaadev/bttune-android/releases" target="_blank" rel="noopener noreferrer" class="btn btn-outlined btn-large">
+              <span class="material-symbols-outlined">open_in_new</span>
+              <span>GitHub Releases</span>
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span class="meta-item"><span class="material-symbols-outlined">android</span> Android 8.0+ (API 26+)</span>
+            <span class="dot-separator">•</span>
+            <span class="meta-item"><span class="material-symbols-outlined">privacy_tip</span> Zero Telemetry & Trackers</span>
+            <span class="dot-separator">•</span>
+            <span class="meta-item"><span class="material-symbols-outlined">code</span> 100% Kotlin</span>
+          </div>
+        </div>
+
+        <!-- Phone Mockup with Realistic Full-Screen App UI -->
+        <div class="hero-mockup-wrapper reveal-on-scroll">
+          <div class="phone-frame">
+            <div class="speaker-notch"></div>
+            <div class="phone-status-bar">
+              <span class="status-time">9:41</span>
+              <div class="status-icons">
+                <span class="material-symbols-outlined status-ico">wifi</span>
+                <span class="material-symbols-outlined status-ico">signal_cellular_4_bar</span>
+                <span class="material-symbols-outlined status-ico">battery_full</span>
+              </div>
+            </div>
+            
+            <div class="screen-content">
+              <!-- Full Screen App UI Screenshot -->
+              <img 
+                src="assets/screenshots/hero_bg.jpg" 
+                alt="BTTUNE Full Player Screen" 
+                class="mockup-img"
+                id="heroMockupImg"
+                loading="eager"
+              >
+              <!-- Glass Dynamic Player Interface Overlay -->
+              <div class="mockup-player-overlay">
+                <div class="mockup-top-meta">
+                  <span class="now-playing-chip">8D SPATIAL DSP</span>
+                  <span class="material-symbols-outlined heart-ico">favorite</span>
+                </div>
+                <div class="song-info">
+                  <span class="song-title">Midnight Euphoria</span>
+                  <span class="song-artist">Studio Master • 320kbps FLAC</span>
+                </div>
+                <div class="mini-seekbar">
+                  <div class="mini-progress"></div>
+                </div>
+                <div class="player-controls">
+                  <span class="material-symbols-outlined">shuffle</span>
+                  <span class="material-symbols-outlined">skip_previous</span>
+                  <span class="material-symbols-outlined play-btn">pause_circle</span>
+                  <span class="material-symbols-outlined">skip_next</span>
+                  <span class="material-symbols-outlined">repeat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Key Stats / Chips Row (Live AppDownloadsManager Integration) -->
+    <section class="stats-section" aria-label="Key Stats">
+      <div class="container">
+        <div class="stats-grid reveal-on-scroll">
+          <div class="m3-chip" id="downloadsChip">
+            <span class="material-symbols-outlined chip-icon">downloading</span>
+            <span class="chip-label" id="downloadsCountDisplay">Loading Installs...</span>
+          </div>
+          <div class="m3-chip">
+            <span class="material-symbols-outlined chip-icon">block</span>
+            <span class="chip-label">Zero Advertisements</span>
+          </div>
+          <div class="m3-chip">
+            <span class="material-symbols-outlined chip-icon">graphic_eq</span>
+            <span class="chip-label">8D & Spatial DSP Audio</span>
+          </div>
+          <div class="m3-chip">
+            <span class="material-symbols-outlined chip-icon">lyrics</span>
+            <span class="chip-label">Syllable-Level Karaoke</span>
+          </div>
+          <div class="m3-chip">
+            <span class="material-symbols-outlined chip-icon">cloud_off</span>
+            <span class="chip-label">Offline Smart Cache</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Architecture & Highlights (From README Table) -->
+    <section class="arch-section" id="architecture">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="headline-label">SYSTEM ARCHITECTURE</span>
+          <h2 class="headline-large">Engineering Specifications</h2>
+          <p class="body-large section-sub">Built from the ground up for raw performance, extreme battery efficiency, and acoustic fidelity.</p>
+        </div>
+
+        <div class="arch-table-wrapper reveal-on-scroll">
+          <table class="arch-table">
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Specification & Tech Stack</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Platform</strong></td>
+                <td>Native Android (API 26+ / Android 8.0+)</td>
+              </tr>
+              <tr>
+                <td><strong>Language & Concurrency</strong></td>
+                <td>Kotlin 2.0+ with Asynchronous Coroutines & StateFlow Reactive State</td>
+              </tr>
+              <tr>
+                <td><strong>User Interface</strong></td>
+                <td>100% Declarative Jetpack Compose & Material 3 (Material You Dynamic Theme)</td>
+              </tr>
+              <tr>
+                <td><strong>Audio Engine</strong></td>
+                <td>ExoPlayer / Media3 with 8D Spatial Surround & Parametric DSP Processors</td>
+              </tr>
+              <tr>
+                <td><strong>Lyrics Provider</strong></td>
+                <td>Real-time syllable sync aggregated via LRCLIB, Musixmatch & BetterLyrics</td>
+              </tr>
+              <tr>
+                <td><strong>Privacy & Security</strong></td>
+                <td>Zero telemetry, zero external advertising trackers, encrypted local storage</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Capabilities Section (All 6 Categories from README) -->
+    <section class="features-section" id="capabilities">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="headline-label">CORE CAPABILITIES</span>
+          <h2 class="headline-large">Engineered for Audiophiles & Power Users</h2>
+          <p class="body-large section-sub">Discover every module built inside BTTUNE's next-generation client.</p>
+        </div>
+
+        <div class="capabilities-grid">
+          <!-- 1. Streaming & Playback Pipeline -->
+          <div class="capability-card reveal-on-scroll">
+            <div class="cap-header">
+              <span class="material-symbols-outlined cap-icon">stream</span>
+              <h3 class="title-large">Streaming & Playback Pipeline</h3>
+            </div>
+            <ul class="cap-list">
+              <li><strong>Ad-Free Engine:</strong> Stream millions of tracks, albums, and playlists without interruption.</li>
+              <li><strong>Background Playback:</strong> Native foreground service ensuring continuous playback during screen-off and multitasking.</li>
+              <li><strong>Dynamic Autoplay:</strong> Machine-learning recommendations that automatically queue related tracks.</li>
+              <li><strong>Smart Audio Cache:</strong> Streamed audio blocks are cached locally to minimize network data usage on replay.</li>
+            </ul>
+          </div>
+
+          <!-- 2. Interface & Material 3 Theming -->
+          <div class="capability-card reveal-on-scroll">
+            <div class="cap-header">
+              <span class="material-symbols-outlined cap-icon">palette</span>
+              <h3 class="title-large">Interface & Material 3 Theming</h3>
+            </div>
+            <ul class="cap-list">
+              <li><strong>Dynamic Color Harmony:</strong> Adaptive Material You color extraction from system wallpaper and album artwork.</li>
+              <li><strong>Custom Player Canvases:</strong> Switch between Pure AMOLED Black, Liquid Glass, Neon Glow, and Vinyl turntable views.</li>
+              <li><strong>System Integration:</strong> Rich MediaStyle notification actions, lock screen playback controls, and Always-On Display (AOD).</li>
+            </ul>
+          </div>
+
+          <!-- 3. Lyrics & Vocal Synchronization -->
+          <div class="capability-card reveal-on-scroll">
+            <div class="cap-header">
+              <span class="material-symbols-outlined cap-icon">mic_external_on</span>
+              <h3 class="title-large">Lyrics & Vocal Synchronization</h3>
+            </div>
+            <ul class="cap-list">
+              <li><strong>Syllable-Level Tracking:</strong> Time-accurate word-by-word karaoke highlighting in real time.</li>
+              <li><strong>Multi-Source Fallback:</strong> Automatic aggregation across global lyric repositories (LRCLIB, Musixmatch, BetterLyrics).</li>
+              <li><strong>AI Translation & Romanization:</strong> In-line pronunciation guides and multi-language lyrics translation.</li>
+              <li><strong>Lyric Canvas Export:</strong> Generate shareable typography lyrics cards for social media.</li>
+            </ul>
+          </div>
+
+          <!-- 4. Studio DSP & Acoustic Processing -->
+          <div class="capability-card reveal-on-scroll">
+            <div class="cap-header">
+              <span class="material-symbols-outlined cap-icon">spatial_audio</span>
+              <h3 class="title-large">Studio DSP & Acoustic Processing</h3>
+            </div>
+            <ul class="cap-list">
+              <li><strong>8D & Spatial Soundstage:</strong> Virtual surround sound mapping tailored for immersive headphone listening.</li>
+              <li><strong>Parametric Equalizer:</strong> Multi-band frequency adjustment with custom acoustic presets and bass boost.</li>
+              <li><strong>Gapless DJ Automix:</strong> Configurable crossfade handoff curves for seamless transitions between tracks.</li>
+              <li><strong>USB Bit-Perfect Bypass:</strong> Direct driver bypass engineered for external audiophile USB DAC hardware.</li>
+            </ul>
+          </div>
+
+          <!-- 5. Storage & Media Tools -->
+          <div class="capability-card reveal-on-scroll">
+            <div class="cap-header">
+              <span class="material-symbols-outlined cap-icon">folder_zip</span>
+              <h3 class="title-large">Storage & Media Tools</h3>
+            </div>
+            <ul class="cap-list">
+              <li><strong>Offline Storage:</strong> High-speed direct downloading of tracks and entire albums for true offline listening.</li>
+              <li><strong>Integrated Ringtone Trimmer:</strong> Waveform audio cutter to produce custom ringtones directly from downloads.</li>
+              <li><strong>Local Media Indexing:</strong> Scan, organize, and play audio files already stored on your device storage.</li>
+            </ul>
+          </div>
+
+          <!-- 6. Utilities & Discovery -->
+          <div class="capability-card reveal-on-scroll">
+            <div class="cap-header">
+              <span class="material-symbols-outlined cap-icon">hub</span>
+              <h3 class="title-large">Utilities & Discovery</h3>
+            </div>
+            <ul class="cap-list">
+              <li><strong>Acoustic Music Recognition:</strong> Real-time audio fingerprinting algorithm to identify ambient songs around you.</li>
+              <li><strong>Listen Together:</strong> Low-latency synchronized group streaming rooms with friends.</li>
+              <li><strong>Playback Analytics:</strong> Detailed personal listening stats, top artists, and streaming trends.</li>
+              <li><strong>Encrypted Backup:</strong> Complete library and preferences export via local storage or cloud sync.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Screenshots Carousel -->
+    <section class="screenshots-section" id="screenshots">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="headline-label">VISUAL EXPERIENCE</span>
+          <h2 class="headline-large">Crafted with Pure Jetpack Compose</h2>
+          <p class="body-large section-sub">Fluid gestures, responsive dynamics, and customizable AMOLED canvas themes.</p>
+        </div>
+
+        <div class="carousel-container reveal-on-scroll">
+          <button class="carousel-nav-btn prev-btn" id="prevSlide" aria-label="Previous screenshot">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          
+          <div class="carousel-track" id="carouselTrack" tabindex="0" role="region" aria-label="Screenshots Carousel">
+            <!-- Screen 1: Home & Discovery -->
+            <div class="screenshot-slide">
+              <div class="screenshot-card">
+                <img 
+                  src="assets/screenshots/previewalbum.jpg" 
+                  onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=80'" 
+                  alt="BTTUNE Home & Music Discovery" 
+                  loading="lazy"
+                >
+                <div class="slide-info">
+                  <span class="slide-caption">Home & Discovery</span>
+                  <span class="slide-sub">Smart ML auto-recommendations</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 2: 8D Spatial DSP & Equalizer -->
+            <div class="screenshot-slide">
+              <div class="screenshot-card">
+                <img 
+                  src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=80" 
+                  alt="BTTUNE 8D Spatial Studio & Equalizer" 
+                  loading="lazy"
+                >
+                <div class="slide-info">
+                  <span class="slide-caption">8D Spatial DSP Studio</span>
+                  <span class="slide-sub">Multi-band parametric EQ & bass boost</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 3: Syllable Synchronized Lyrics -->
+            <div class="screenshot-slide">
+              <div class="screenshot-card">
+                <img 
+                  src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&auto=format&fit=crop&q=80" 
+                  alt="BTTUNE Syllable Synced Lyrics" 
+                  loading="lazy"
+                >
+                <div class="slide-info">
+                  <span class="slide-caption">Syllable-Level Lyrics</span>
+                  <span class="slide-sub">Live karaoke & AI translations</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 4: Offline Library & Downloads -->
+            <div class="screenshot-slide">
+              <div class="screenshot-card">
+                <img 
+                  src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500&auto=format&fit=crop&q=80" 
+                  alt="BTTUNE Offline Library & Downloads" 
+                  loading="lazy"
+                >
+                <div class="slide-info">
+                  <span class="slide-caption">Offline Music Library</span>
+                  <span class="slide-sub">Smart local cache & ringtone trimmer</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 5: Widget & Lockscreen Playback -->
+            <div class="screenshot-slide">
+              <div class="screenshot-card">
+                <img 
+                  src="assets/screenshots/widget_preview.png" 
+                  onerror="this.src='https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=500&auto=format&fit=crop&q=80'" 
+                  alt="BTTUNE Widget & Dynamic Player" 
+                  loading="lazy"
+                >
+                <div class="slide-info">
+                  <span class="slide-caption">Widget & Media Controls</span>
+                  <span class="slide-sub">MediaStyle notification & lockscreen</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 6: Pure AMOLED & Canvas Themes -->
+            <div class="screenshot-slide">
+              <div class="screenshot-card">
+                <img 
+                  src="assets/screenshots/hero_bg.jpg" 
+                  alt="BTTUNE Pure AMOLED Theme" 
+                  loading="lazy"
+                >
+                <div class="slide-info">
+                  <span class="slide-caption">Pure AMOLED Black</span>
+                  <span class="slide-sub">Liquid Glass, Neon Glow & Vinyl themes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-nav-btn next-btn" id="nextSlide" aria-label="Next screenshot">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. How to Install (From README Instructions) -->
+    <section class="install-section" id="install">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="headline-label">GET STARTED</span>
+          <h2 class="headline-large">How to Install BTTUNE APK</h2>
+          <p class="body-large section-sub">Install the signed production build in under 60 seconds.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card reveal-on-scroll">
+            <div class="step-indicator">1</div>
+            <div class="step-icon">
+              <span class="material-symbols-outlined">download</span>
+            </div>
+            <h3 class="title-large">Download Production Build</h3>
+            <p class="body-medium">Click the button below or visit the GitHub Releases portal to download the latest signed <code>BTTUNE-release.apk</code>.</p>
+          </div>
+
+          <div class="step-card reveal-on-scroll">
+            <div class="step-indicator">2</div>
+            <div class="step-icon">
+              <span class="material-symbols-outlined">security_update_good</span>
+            </div>
+            <h3 class="title-large">Verify Compatibility</h3>
+            <p class="body-medium">Ensure your phone runs <strong>Android 8.0 (API 26)</strong> or higher. Enable "Install Unknown Apps" for your browser if prompted.</p>
+          </div>
+
+          <div class="step-card reveal-on-scroll">
+            <div class="step-indicator">3</div>
+            <div class="step-icon">
+              <span class="material-symbols-outlined">music_note</span>
+            </div>
+            <h3 class="title-large">Launch & Enjoy</h3>
+            <p class="body-medium">Tap the downloaded APK, hit Install, and immerse yourself in studio-grade audio streaming completely ad-free.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Download Card Section -->
+    <section class="download-section" id="download">
+      <div class="container">
+        <div class="download-card reveal-on-scroll">
+          <div class="download-glow" aria-hidden="true"></div>
+          <div class="download-header">
+            <img src="assets/bttune_logo.svg" alt="BTTUNE Logo" class="download-logo-icon">
+            <h2 class="headline-large">Download Latest BTTUNE APK</h2>
+            <p class="body-large">Get the official, signed production release directly onto your Android device.</p>
+          </div>
+
+          <div class="app-specs-row">
+            <div class="spec-item">
+              <span class="spec-label">Version</span>
+              <span class="spec-val" id="appVersionVal">v6.1.3 (Latest)</span>
+            </div>
+            <div class="spec-divider"></div>
+            <div class="spec-item">
+              <span class="spec-label">Total Installs</span>
+              <span class="spec-val" id="cardDownloadsCount">Loading...</span>
+            </div>
+            <div class="spec-divider"></div>
+            <div class="spec-item">
+              <span class="spec-label">File Size</span>
+              <span class="spec-val">11.7 MB</span>
+            </div>
+            <div class="spec-divider"></div>
+            <div class="spec-item">
+              <span class="spec-label">Architecture</span>
+              <span class="spec-val">API 26+ (Android 8.0+)</span>
+            </div>
+          </div>
+
+          <!-- Download Action Area -->
+          <div class="download-action-box">
+            <button 
+              id="downloadBtn" 
+              class="btn btn-filled btn-download-trigger" 
+              data-apk-url="https://github.com/biswaadev/bttune-android/releases/download/v6.1.3/BTTUNE-release.apk"
+              aria-label="Start APK Download"
+            >
+              <span class="material-symbols-outlined btn-icon" id="btnIcon">cloud_download</span>
+              <span class="btn-text" id="btnText">Download APK (11.7 MB)</span>
+            </button>
+
+            <!-- Download Progress Bar -->
+            <div class="progress-wrapper" id="progressWrapper" style="display: none;" aria-hidden="true">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+              </div>
+              <div class="progress-status-text">
+                <span id="progressPercent">0%</span>
+                <span id="progressStatus">Starting download...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="safety-note">
+            <span class="material-symbols-outlined">verified_user</span>
+            <span>Signed Production Release • 100% Adware-free • GPL 3.0 Open Source</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Developers & Contributors Section (From README) -->
+    <section class="developers-section" id="developers">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="headline-label">OPEN SOURCE COMMUNITY</span>
+          <h2 class="headline-large">Developers & Contributors</h2>
+          <p class="body-large section-sub">Crafted with passion by the BTTUNE core development team.</p>
+        </div>
+
+        <div class="devs-grid">
+          <!-- Biswajit Tanti -->
+          <div class="dev-card reveal-on-scroll">
+            <div class="dev-avatar">
+              <span class="material-symbols-outlined">terminal</span>
+            </div>
+            <h3 class="title-large">Biswajit Tanti</h3>
+            <span class="dev-role">Lead Developer & Architect</span>
+            <div class="dev-links">
+              <a href="https://github.com/biswaadev" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+                <span class="material-symbols-outlined">code</span>
+                <span>@biswaadev</span>
+              </a>
+              <a href="https://biswadev.vercel.app/" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+                <span class="material-symbols-outlined">language</span>
+                <span>Portfolio</span>
+              </a>
+              <a href="https://wa.me/919365015437" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+                <span class="material-symbols-outlined">chat</span>
+                <span>WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Trisan Tanti -->
+          <div class="dev-card reveal-on-scroll">
+            <div class="dev-avatar">
+              <span class="material-symbols-outlined">developer_mode</span>
+            </div>
+            <h3 class="title-large">Trisan Tanti</h3>
+            <span class="dev-role">Core Developer</span>
+            <div class="dev-links">
+              <span class="dev-tag">BTTUNE Core Team</span>
+            </div>
+          </div>
+
+          <!-- bitzzdev -->
+          <div class="dev-card reveal-on-scroll">
+            <div class="dev-avatar">
+              <span class="material-symbols-outlined">group</span>
+            </div>
+            <h3 class="title-large">bitzzdev</h3>
+            <span class="dev-role">Contributor</span>
+            <div class="dev-links">
+              <a href="https://github.com/bitzzdev" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+                <span class="material-symbols-outlined">code</span>
+                <span>@bitzzdev</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Community & Support Bar -->
+        <div class="community-banner reveal-on-scroll">
+          <div class="comm-item">
+            <span class="material-symbols-outlined comm-icon">send</span>
+            <div>
+              <strong>Telegram Support:</strong>
+              <a href="https://t.me/freek311" target="_blank" rel="noopener noreferrer">@freek311</a>
+            </div>
+          </div>
+          <div class="comm-divider"></div>
+          <div class="comm-item">
+            <span class="material-symbols-outlined comm-icon">bug_report</span>
+            <div>
+              <strong>Bug Tracker:</strong>
+              <a href="https://github.com/biswaadev/bttune-android/issues" target="_blank" rel="noopener noreferrer">GitHub Issue Tracker</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FAQ Section -->
+    <section class="faq-section" id="faq">
+      <div class="container faq-container">
+        <div class="section-header reveal-on-scroll">
+          <span class="headline-label">QUESTIONS & ANSWERS</span>
+          <h2 class="headline-large">Frequently Asked Questions</h2>
+          <p class="body-large section-sub">Learn more about BTTUNE's technical capabilities, privacy, and audio architecture.</p>
+        </div>
+
+        <div class="accordion-list reveal-on-scroll">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span class="accordion-title">Is BTTUNE free and ad-free?</span>
+              <span class="material-symbols-outlined accordion-icon">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <p>Yes. BTTUNE is 100% open-source under the GNU General Public License v3.0 (GPL 3.0). It contains zero ads, zero subscriptions, and zero tracking code.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span class="accordion-title">How does BTTUNE protect user privacy?</span>
+              <span class="material-symbols-outlined accordion-icon">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <p>BTTUNE enforces a strict zero telemetry policy. No third-party analytical SDKs or marketing trackers are bundled into the codebase. All your library data and preferences remain encrypted locally on your device.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span class="accordion-title">What audio engine powers BTTUNE?</span>
+              <span class="material-symbols-outlined accordion-icon">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <p>BTTUNE leverages Google's Media3 / ExoPlayer pipeline coupled with custom 8D and spatial DSP processors, a parametric equalizer, gapless DJ crossfading, and USB bit-perfect direct output for external audiophile DACs.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span class="accordion-title">Where does BTTUNE fetch synchronized lyrics?</span>
+              <span class="material-symbols-outlined accordion-icon">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <p>Lyrics are aggregated with real-time multi-source fallback across global repositories including LRCLIB, Musixmatch, and BetterLyrics, supporting word-by-word syllable karaoke highlighting and AI translation.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span class="accordion-title">What are the minimum system requirements?</span>
+              <span class="material-symbols-outlined accordion-icon">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <p>Any Android device running Android 8.0 Oreo (API level 26) or higher with at least 1GB RAM.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand">
+            <img src="assets/bttune_logo.svg" alt="BTTUNE Logo" class="brand-logo-img">
+            <span class="brand-name">BTTUNE</span>
+          </div>
+          <p class="body-medium footer-desc">High-Performance, Ad-Free YouTube Music Streaming Client for Android. Engineered with Jetpack Compose & Kotlin Coroutines.</p>
+        </div>
+
+        <div class="footer-nav">
+          <span class="footer-col-title">Navigation</span>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#developers">Team & Contributors</a></li>
+            <li><a href="#download">Download APK</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav">
+          <span class="footer-col-title">Open Source & Community</span>
+          <ul>
+            <li><a href="https://github.com/biswaadev/bttune-android" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+            <li><a href="https://github.com/biswaadev/bttune-android/releases" target="_blank" rel="noopener noreferrer">Releases Portal</a></li>
+            <li><a href="https://github.com/biswaadev/bttune-android/issues" target="_blank" rel="noopener noreferrer">Bug Tracker</a></li>
+            <li><a href="https://t.me/freek311" target="_blank" rel="noopener noreferrer">Telegram Channel</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GPL 3.0 License</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="body-small">© 2026 BTTUNE Open Source Project • Licensed under GNU General Public License v3.0 (GPL 3.0).</p>
+        <div class="social-icons">
+          <a href="https://github.com/biswaadev/bttune-android" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><span class="material-symbols-outlined">code</span></a>
+          <a href="https://t.me/freek311" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><span class="material-symbols-outlined">send</span></a>
+          <a href="https://wa.me/919365015437" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><span class="material-symbols-outlined">chat</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top FAB -->
+  <button class="fab-back-to-top" id="fabBackToTop" aria-label="Scroll back to top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <!-- Vanilla JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
