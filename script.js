@@ -64,32 +64,68 @@ function formatNumber(num) {
 }
 
 /* --------------------------------------------------------------------------
-   LATEST RELEASE AUTO-UPDATE (GITHUB RELEASES)
+   LATEST RELEASE DYNAMIC HYDRATION (GITHUB RELEASES API)
+   Fetches: Version, APK Size, Download URL, Android Requirements
    -------------------------------------------------------------------------- */
 async function checkLatestRelease() {
+  const versionVal = document.getElementById('appVersionVal');
+  const sizeVal = document.getElementById('appSizeVal');
+  const reqVal = document.getElementById('appReqVal');
+  const heroBadge = document.getElementById('heroReleaseBadge');
+  const stickySub = document.getElementById('stickyMetaSub');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const btnText = document.getElementById('btnText');
+
   try {
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/releases/latest`);
-    if (!res.ok) return;
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const release = await res.json();
     
-    if (release.tag_name) {
-      const versionVal = document.getElementById('appVersionVal');
-      const badgeVal = document.getElementById('heroReleaseBadge');
-      if (versionVal) versionVal.textContent = release.tag_name;
-      if (badgeVal) badgeVal.textContent = `${release.tag_name} Stable`;
-    }
+    // 1. Dynamic Version
+    const tagName = release.tag_name || "v6.1.3";
+    if (versionVal) versionVal.textContent = `${tagName} (Latest)`;
+    if (heroBadge) heroBadge.textContent = `${tagName} Stable`;
 
+    // 2. Dynamic APK Asset & File Size
+    let formattedSize = "11.7 MB";
     if (release.assets && release.assets.length > 0) {
       const apkAsset = release.assets.find(a => a.name.endsWith('.apk')) || release.assets[0];
-      if (apkAsset && apkAsset.browser_download_url) {
-        const downloadBtn = document.getElementById('downloadBtn');
-        if (downloadBtn) {
+      
+      if (apkAsset) {
+        if (apkAsset.size && typeof apkAsset.size === 'number') {
+          const mb = (apkAsset.size / (1024 * 1024)).toFixed(1);
+          formattedSize = `${mb} MB`;
+        }
+        if (apkAsset.browser_download_url && downloadBtn) {
           downloadBtn.setAttribute('data-apk-url', apkAsset.browser_download_url);
         }
       }
     }
+
+    if (sizeVal) sizeVal.textContent = formattedSize;
+    if (btnText && (!downloadBtn.classList.contains('downloading'))) {
+      btnText.textContent = `Download APK (${formattedSize})`;
+    }
+    if (stickySub) {
+      stickySub.textContent = `${tagName} • ${formattedSize}`;
+    }
+
+    // 3. Dynamic Android Requirement (Parsed from release notes or repo spec)
+    let requirement = "Android 8.0+ (API 26+)";
+    if (release.body) {
+      const match = release.body.match(/(Android\s*\d+(\.\d+)?\+?)|(API\s*\d+\+?)/i);
+      if (match) {
+        requirement = match[0];
+      }
+    }
+    if (reqVal) reqVal.textContent = requirement;
+
   } catch (e) {
-    console.warn("Using default release metadata.");
+    console.warn("Could not dynamically fetch GitHub release metadata, using defaults:", e);
+    // Safe fallbacks
+    if (versionVal) versionVal.textContent = "v6.1.3 (Latest)";
+    if (sizeVal) sizeVal.textContent = "11.7 MB";
+    if (reqVal) reqVal.textContent = "Android 8.0+";
   }
 }
 
@@ -398,7 +434,8 @@ function initDownloadFlow() {
         downloadBtn.style.backgroundColor = '';
         downloadBtn.style.color = '';
         btnIcon.textContent = 'cloud_download';
-        btnText.textContent = 'Download APK (11.7 MB)';
+        const currentSize = (document.getElementById('appSizeVal')?.textContent) || '11.7 MB';
+        btnText.textContent = `Download APK (${currentSize})`;
         progressWrapper.style.display = 'none';
         progressBarFill.style.width = '0%';
         progressPercent.textContent = '0%';
