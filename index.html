@@ -35,8 +35,8 @@
   <!-- Material Symbols Outlined -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Stylesheet (versioned to bust cache) -->
+  <link rel="stylesheet" href="style.css?v=2.0">
 </head>
 <body>
 
@@ -185,24 +185,20 @@
           </button>
           
           <div class="carousel-track" id="carouselTrack" tabindex="0" role="region" aria-label="Screenshots Carousel">
-            <!-- Screen 1: Home & Discovery -->
+            <!-- Screen 1: Home Screen -->
             <div class="screenshot-slide">
               <div class="screenshot-card">
                 <div class="screen-img-box">
                   <img 
                     src="assets/screenshots/hero-screen.jpg" 
-                    alt="BTTUNE Home & Music Discovery" 
+                    alt="BTTUNE Home Screen" 
                     loading="lazy"
                   >
-                </div>
-                <div class="slide-info">
-                  <span class="slide-caption">Home & Discovery</span>
-                  <span class="slide-sub">Smart ML auto-recommendations & quick play</span>
                 </div>
               </div>
             </div>
 
-            <!-- Screen 2: Syllable Synchronized Lyrics -->
+            <!-- Screen 2: Lyrics Screen -->
             <div class="screenshot-slide">
               <div class="screenshot-card">
                 <div class="screen-img-box">
@@ -212,26 +208,18 @@
                     loading="lazy"
                   >
                 </div>
-                <div class="slide-info">
-                  <span class="slide-caption">Syllable-Level Lyrics</span>
-                  <span class="slide-sub">Real-time karaoke sync & AI translations</span>
-                </div>
               </div>
             </div>
 
-            <!-- Screen 3: Offline Library & Downloads -->
+            <!-- Screen 3: Offline Library -->
             <div class="screenshot-slide">
               <div class="screenshot-card">
                 <div class="screen-img-box">
                   <img 
                     src="assets/screenshots/screen-4.jpg" 
-                    alt="BTTUNE Offline Library & Downloads" 
+                    alt="BTTUNE Offline Music Library" 
                     loading="lazy"
                   >
-                </div>
-                <div class="slide-info">
-                  <span class="slide-caption">Offline Music Library</span>
-                  <span class="slide-sub">Smart local cache & high-speed downloads</span>
                 </div>
               </div>
             </div>
@@ -246,14 +234,10 @@
                     loading="lazy"
                   >
                 </div>
-                <div class="slide-info">
-                  <span class="slide-caption">Studio Audio Quality</span>
-                  <span class="slide-sub">Hi-Res FLAC & 320kbps bit-perfect streaming</span>
-                </div>
               </div>
             </div>
 
-            <!-- Screen 5: Pure AMOLED & Canvas Themes -->
+            <!-- Screen 5: AMOLED Theme -->
             <div class="screenshot-slide">
               <div class="screenshot-card">
                 <div class="screen-img-box">
@@ -262,10 +246,6 @@
                     alt="BTTUNE Pure AMOLED Theme" 
                     loading="lazy"
                   >
-                </div>
-                <div class="slide-info">
-                  <span class="slide-caption">Pure AMOLED Black</span>
-                  <span class="slide-sub">Dynamic Material You palette extraction</span>
                 </div>
               </div>
             </div>
@@ -866,6 +846,6 @@
   </button>
 
   <!-- Vanilla JavaScript -->
-  <script src="script.js"></script>
+  <script src="script.js?v=2.0"></script>
 </body>
 </html>

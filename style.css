@@ -465,29 +465,29 @@ code {
 }
 
 .phone-frame {
-  width: 290px;
+  width: 285px;
+  max-width: 85vw;
   aspect-ratio: 575 / 1280;
   height: auto;
   background-color: #0b090e;
-  border: 9px solid #2B2930;
-  border-radius: 38px;
+  border: 7px solid #2B2930;
+  border-radius: 34px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75),
               0 0 50px rgba(208, 188, 255, 0.16);
   position: relative;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
 }
 
 .speaker-notch {
-  display: none;
+  display: none !important;
 }
 
 .screen-content {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: #121016;
+  background-color: #000;
   overflow: hidden;
   border-radius: 26px;
   display: flex;
@@ -496,8 +496,7 @@ code {
 .mockup-img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
-  transition: transform 400ms ease;
+  object-fit: contain;
   display: block;
 }
 
@@ -680,18 +679,18 @@ code {
 }
 
 .screenshot-card {
-  border-radius: var(--radius-md);
+  border-radius: 26px;
   overflow: hidden;
-  background-color: var(--surface-container);
-  border: 1px solid var(--outline-variant);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  background-color: #0b090e;
+  border: 4px solid var(--outline-variant);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
   transition: transform var(--motion-duration-short) ease, border-color var(--motion-duration-short) ease;
   display: flex;
   flex-direction: column;
 }
 
 .screenshot-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   border-color: var(--primary);
 }
 
@@ -699,15 +698,16 @@ code {
   width: 100%;
   aspect-ratio: 575 / 1280;
   height: auto;
-  background-color: #0d0c11;
+  background-color: #0b090e;
   overflow: hidden;
   position: relative;
+  display: flex;
 }
 
 .screen-img-box img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: contain;
   transition: transform 300ms ease;
   display: block;
 }
@@ -717,9 +717,7 @@ code {
 }
 
 .slide-info {
-  padding: 0.9rem 1rem;
-  background-color: var(--surface-container-high);
-  text-align: left;
+  display: none;
 }
 
 .slide-caption {
