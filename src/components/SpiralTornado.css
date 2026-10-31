@@ -1,0 +1,69 @@
+/* Outward Tornado / Expanding Spiral Animation Keyframes */
+
+@keyframes spiralOrbitCW {
+  0% {
+    transform: rotate(var(--orbit-start-angle)) translate(var(--orbit-r-inner), 0) rotate(calc(-1 * var(--orbit-start-angle)));
+    opacity: 0.25;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: rotate(calc(var(--orbit-start-angle) + 180deg)) translate(var(--orbit-r-mid), 0) rotate(calc(-1 * (var(--orbit-start-angle) + 180deg)));
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotate(calc(var(--orbit-start-angle) + 360deg)) translate(var(--orbit-r-outer), 0) rotate(calc(-1 * (var(--orbit-start-angle) + 360deg)));
+    opacity: 0.35;
+  }
+}
+
+@keyframes spiralOrbitCCW {
+  0% {
+    transform: rotate(var(--orbit-start-angle)) translate(var(--orbit-r-inner), 0) rotate(calc(-1 * var(--orbit-start-angle)));
+    opacity: 0.25;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: rotate(calc(var(--orbit-start-angle) - 180deg)) translate(var(--orbit-r-mid), 0) rotate(calc(-1 * (var(--orbit-start-angle) - 180deg)));
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotate(calc(var(--orbit-start-angle) - 360deg)) translate(var(--orbit-r-outer), 0) rotate(calc(-1 * (var(--orbit-start-angle) - 360deg)));
+    opacity: 0.35;
+  }
+}
+
+@keyframes subtleFloatTilt {
+  0%, 100% {
+    transform: rotate(var(--base-tilt)) scale(1);
+  }
+  50% {
+    transform: rotate(calc(var(--base-tilt) + 3deg)) translateY(-6px) scale(1.03);
+  }
+}
+
+.tornado-orbit-cw {
+  animation: spiralOrbitCW var(--orbit-duration, 35s) linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.tornado-orbit-ccw {
+  animation: spiralOrbitCCW var(--orbit-duration, 35s) linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.tornado-item-tilt {
+  animation: subtleFloatTilt 6s ease-in-out infinite;
+  will-change: transform;
+}

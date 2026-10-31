@@ -2,135 +2,40 @@
 
 @layer base {
   :root {
-    /* M3 Dark Baseline Tokens (Dynamic Music Deep Slate & Violet/Teal accents) */
-    --m3-surface: #0e0e13;
-    --m3-surface-dim: #09090d;
-    --m3-surface-bright: #25242d;
-    --m3-surface-container-lowest: #07070a;
-    --m3-surface-container-low: #141319;
-    --m3-surface-container: #1b1a21;
-    --m3-surface-container-high: #24222b;
-    --m3-surface-container-highest: #2e2c36;
-
-    --m3-on-surface: #e4e1eb;
-    --m3-on-surface-variant: #c8c5d2;
-    --m3-outline: #918f9c;
-    --m3-outline-variant: #464550;
-
-    --m3-primary: #d0bcff;
-    --m3-on-primary: #381e72;
-    --m3-primary-container: #4f378b;
-    --m3-on-primary-container: #eaddff;
-
-    --m3-secondary: #ccc2dc;
-    --m3-on-secondary: #332d41;
-    --m3-secondary-container: #4a4458;
-    --m3-on-secondary-container: #e8def8;
-
-    --m3-tertiary: #efb8c8;
-    --m3-on-tertiary: #492532;
-    --m3-tertiary-container: #633b48;
-    --m3-on-tertiary-container: #ffd8e4;
-
-    --m3-accent-mint: #80ebd2;
-    --m3-accent-amber: #ffb74d;
-    --m3-accent-blue: #a8c7fa;
-
-    /* Google Sans Variable Definition */
-    --font-google-sans: 'Google Sans Display', 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-google-text: 'Google Sans Text', 'Google Sans', sans-serif;
+    --font-dm-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
 
-/* Custom Shape Hierarchy according to Material Design 3 Spec */
-.m3-shape-corner-none { border-radius: 0; }
-.m3-shape-corner-xs { border-radius: 4px; }
-.m3-shape-corner-s { border-radius: 8px; }
-.m3-shape-corner-m { border-radius: 12px; }
-.m3-shape-corner-l { border-radius: 16px; }
-.m3-shape-corner-xl { border-radius: 28px; }
-.m3-shape-corner-xxl { border-radius: 36px; }
-.m3-shape-corner-full { border-radius: 9999px; }
-
-/* Custom M3 Cut & Organic Asymmetric Shapes */
-.m3-asymmetric-card {
-  border-radius: 36px 12px 36px 12px;
-}
-.m3-asymmetric-reverse {
-  border-radius: 12px 36px 12px 36px;
-}
-.m3-scallop-chip {
-  border-radius: 24px 8px 24px 8px;
+.font-dmsans {
+  font-family: var(--font-dm-sans);
 }
 
-/* High-impact M3 Elevation & Glow Tonal Masks */
-.m3-elevation-1 {
-  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.25), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-}
-.m3-elevation-2 {
-  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 0 rgba(0, 0, 0, 0.45);
-}
-.m3-elevation-3 {
-  box-shadow: 0 4px 12px 3px rgba(0, 0, 0, 0.35), 0 2px 6px 0 rgba(0, 0, 0, 0.5);
-}
-.m3-elevation-4 {
-  box-shadow: 0 8px 24px 4px rgba(0, 0, 0, 0.4), 0 4px 12px 0 rgba(0, 0, 0, 0.55);
-}
-.m3-elevation-glow {
-  box-shadow: 0 0 40px -10px rgba(208, 188, 255, 0.35), 0 20px 40px -15px rgba(0, 0, 0, 0.7);
-}
-.m3-elevation-glow-mint {
-  box-shadow: 0 0 40px -10px rgba(128, 235, 210, 0.35), 0 20px 40px -15px rgba(0, 0, 0, 0.7);
-}
-
-/* 600px Display Title Responsive Font Size */
-.text-giant-display {
-  font-size: clamp(3rem, 12vw, 8.5rem);
+/* Modern Big Typography Scales */
+.text-ultra-display {
+  font-size: clamp(3.5rem, 11vw, 9.5rem);
   line-height: 0.92;
-  letter-spacing: -0.04em;
-  font-family: var(--font-google-sans);
+  letter-spacing: -0.045em;
+  font-family: var(--font-dm-sans);
 }
 
-.text-hero-headline {
+.text-section-title {
   font-size: clamp(2.5rem, 7vw, 5.5rem);
-  line-height: 1;
+  line-height: 0.96;
   letter-spacing: -0.035em;
-  font-family: var(--font-google-sans);
-}
-
-/* Utility Font classes */
-.font-google {
-  font-family: var(--font-google-sans);
-}
-.font-google-text {
-  font-family: var(--font-google-text);
-}
-
-/* Smooth State Transitions */
-.m3-state-layer {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
-}
-.m3-state-layer:hover {
-  transform: translateY(-2px);
-}
-.m3-state-layer:active {
-  transform: translateY(0px) scale(0.98);
+  font-family: var(--font-dm-sans);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0e0e13;
+  background: #000;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2e2c36;
+  background: #333;
   border-radius: 9999px;
-  border: 2px solid #0e0e13;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #464550;
+  background: #555;
 }
