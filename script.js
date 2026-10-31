@@ -13,15 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initRippleEffect();
   initScrollAnimations();
   initScreenshotsCarousel();
+  initCapabilitiesTabs();
   initAccordion();
   initDownloadFlow();
-  initBackToTop();
+  initStickyBarAndFab();
   loadLiveDownloads();
   checkLatestRelease();
 });
 
 /* --------------------------------------------------------------------------
-   0. LIVE DOWNLOADS COUNTER (AppDownloadsManager Sync)
+   0. LIVE DOWNLOADS COUNTER (Read-only Sync)
    -------------------------------------------------------------------------- */
 async function loadLiveDownloads() {
   const chipDisplay = document.getElementById('downloadsCountDisplay');
@@ -36,7 +37,6 @@ async function loadLiveDownloads() {
         return;
       }
     }
-    // Fallback if network issue
     renderDownloads(100);
   } catch (err) {
     console.warn("Could not fetch downloads count:", err);
@@ -74,7 +74,9 @@ async function checkLatestRelease() {
     
     if (release.tag_name) {
       const versionVal = document.getElementById('appVersionVal');
+      const badgeVal = document.getElementById('heroReleaseBadge');
       if (versionVal) versionVal.textContent = release.tag_name;
+      if (badgeVal) badgeVal.textContent = `${release.tag_name} Stable`;
     }
 
     if (release.assets && release.assets.length > 0) {
@@ -87,7 +89,6 @@ async function checkLatestRelease() {
       }
     }
   } catch (e) {
-    // Graceful fallback to static URLs
     console.warn("Using default release metadata.");
   }
 }
@@ -130,7 +131,7 @@ function initMobileMenu() {
    2. MATERIAL 3 RIPPLE EFFECT
    -------------------------------------------------------------------------- */
 function initRippleEffect() {
-  const rippleElements = document.querySelectorAll('.btn, .m3-chip, .fab-back-to-top');
+  const rippleElements = document.querySelectorAll('.btn, .m3-chip, .fab-back-to-top, .cap-tab-pill');
 
   rippleElements.forEach(el => {
     el.addEventListener('click', function(e) {
@@ -177,36 +178,101 @@ function initScrollAnimations() {
     });
   }, {
     root: null,
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -30px 0px'
   });
 
   reveals.forEach(el => observer.observe(el));
 }
 
 /* --------------------------------------------------------------------------
-   4. SCREENSHOTS CAROUSEL SCROLL
+   4. SCREENSHOTS CAROUSEL & DOTS
    -------------------------------------------------------------------------- */
 function initScreenshotsCarousel() {
   const track = document.getElementById('carouselTrack');
   const prevBtn = document.getElementById('prevSlide');
   const nextBtn = document.getElementById('nextSlide');
+  const dotsContainer = document.getElementById('carouselDots');
 
-  if (!track || !prevBtn || !nextBtn) return;
+  if (!track) return;
 
-  const scrollDistance = 280;
+  const slides = track.querySelectorAll('.screenshot-slide');
 
-  prevBtn.addEventListener('click', () => {
-    track.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
-  });
+  // Build Dots for Mobile
+  if (dotsContainer && slides.length > 0) {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('span');
+      dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Slide ${idx + 1}`);
+      dot.addEventListener('click', () => {
+        slides[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      });
+      dotsContainer.appendChild(dot);
+    });
 
-  nextBtn.addEventListener('click', () => {
-    track.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+    // Update active dot on scroll
+    track.addEventListener('scroll', () => {
+      const scrollPos = track.scrollLeft;
+      const cardWidth = slides[0].offsetWidth + 20;
+      const activeIdx = Math.round(scrollPos / cardWidth);
+
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === activeIdx);
+      });
+    }, { passive: true });
+  }
+
+  if (prevBtn && nextBtn) {
+    const scrollDistance = 280;
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. MOBILE CAPABILITIES TABS
+   -------------------------------------------------------------------------- */
+function initCapabilitiesTabs() {
+  const tabPills = document.querySelectorAll('.cap-tab-pill');
+  const cards = document.querySelectorAll('.capabilities-grid .capability-card');
+
+  if (!tabPills.length || !cards.length) return;
+
+  tabPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const targetId = pill.getAttribute('data-target');
+
+      // Update pills
+      tabPills.forEach(p => {
+        p.classList.remove('active');
+        p.setAttribute('aria-selected', 'false');
+      });
+      pill.classList.add('active');
+      pill.setAttribute('aria-selected', 'true');
+
+      // Update active card on mobile
+      cards.forEach(card => {
+        if (card.id === targetId) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+
+      // Smooth scroll pill into view on mobile
+      pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    });
   });
 }
 
 /* --------------------------------------------------------------------------
-   5. FAQ ACCORDION
+   6. FAQ ACCORDION
    -------------------------------------------------------------------------- */
 function initAccordion() {
   const items = document.querySelectorAll('.accordion-item');
@@ -240,7 +306,7 @@ function initAccordion() {
 }
 
 /* --------------------------------------------------------------------------
-   6. DOWNLOAD BUTTON & PROGRESS ANIMATION
+   7. DOWNLOAD BUTTON & PROGRESS ANIMATION
    -------------------------------------------------------------------------- */
 function initDownloadFlow() {
   const downloadBtn = document.getElementById('downloadBtn');
@@ -253,7 +319,7 @@ function initDownloadFlow() {
 
   if (!downloadBtn || !progressWrapper) return;
 
-  // Also bind all .direct-download-trigger buttons (like Hero button)
+  // Bind all .direct-download-trigger buttons (Hero button & Sticky Bar button)
   const directTriggers = document.querySelectorAll('.direct-download-trigger');
   directTriggers.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -272,7 +338,6 @@ function initDownloadFlow() {
       return;
     }
 
-    // Note: Sirf app me count increment hota hai, yahan sirf download trigger aur animation hogi.
     // Start UI downloading state
     downloadBtn.classList.add('downloading');
     downloadBtn.style.pointerEvents = 'none';
@@ -283,7 +348,7 @@ function initDownloadFlow() {
 
     let currentPercent = 0;
     const interval = setInterval(() => {
-      currentPercent += Math.floor(Math.random() * 8) + 5;
+      currentPercent += Math.floor(Math.random() * 8) + 6;
 
       if (currentPercent > 100) currentPercent = 100;
 
@@ -300,7 +365,7 @@ function initDownloadFlow() {
         clearInterval(interval);
         finishDownload();
       }
-    }, 110);
+    }, 100);
 
     function finishDownload() {
       btnIcon.textContent = 'check_circle';
@@ -320,7 +385,11 @@ function initDownloadFlow() {
       hiddenLink.style.display = 'none';
       document.body.appendChild(hiddenLink);
       hiddenLink.click();
-      setTimeout(() => document.body.removeChild(hiddenLink), 1000);
+      setTimeout(() => {
+        if (hiddenLink.parentNode) {
+          hiddenLink.parentNode.removeChild(hiddenLink);
+        }
+      }, 1000);
 
       // Reset button state after 6 seconds
       setTimeout(() => {
@@ -339,24 +408,42 @@ function initDownloadFlow() {
 }
 
 /* --------------------------------------------------------------------------
-   7. BACK TO TOP FAB BUTTON
+   8. STICKY QUICK-BAR & BACK TO TOP FAB
    -------------------------------------------------------------------------- */
-function initBackToTop() {
+function initStickyBarAndFab() {
   const fab = document.getElementById('fabBackToTop');
-  if (!fab) return;
+  const stickyBar = document.getElementById('mobileStickyBar');
+  const heroSection = document.getElementById('hero');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-      fab.classList.add('show');
-    } else {
-      fab.classList.remove('show');
+    const scrollY = window.scrollY;
+
+    // Show Back to Top after 400px
+    if (fab) {
+      if (scrollY > 400) {
+        fab.classList.add('show');
+      } else {
+        fab.classList.remove('show');
+      }
+    }
+
+    // Show Mobile Sticky Bar once past Hero
+    if (stickyBar && heroSection) {
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight - 150;
+      if (scrollY > heroBottom) {
+        stickyBar.classList.add('visible');
+      } else {
+        stickyBar.classList.remove('visible');
+      }
     }
   }, { passive: true });
 
-  fab.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (fab) {
+    fab.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
 }
