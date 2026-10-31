@@ -526,12 +526,12 @@ code {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.85);
+  object-position: top center;
   transition: transform 400ms ease;
 }
 
 .phone-frame:hover .mockup-img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .mockup-player-overlay {
@@ -735,6 +735,7 @@ code {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   transition: transform 300ms ease;
 }
 
