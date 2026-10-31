@@ -680,9 +680,10 @@ export default function RedesignedLanding() {
             href={APP_CONFIG.releasesUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-neutral-500 hover:text-neutral-300 transition mt-4"
+            className="inline-flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-300 transition mt-4"
           >
-            GitHub Releases History →
+            <span>GitHub Releases History</span>
+            <ArrowRight className="w-3.5 h-3.5 text-neutral-500" />
           </a>
         </div>
       </section>
