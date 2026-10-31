@@ -429,14 +429,17 @@ function initDownloadFlow() {
   if (!downloadBtn || !progressWrapper) return;
 
   // Bind all .direct-download-trigger buttons (Hero button & Sticky Bar button)
+  // Smoothly scroll the user to the download section & architecture cards so they can pick their build
   const directTriggers = document.querySelectorAll('.direct-download-trigger');
   directTriggers.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      downloadBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setTimeout(() => {
-        downloadBtn.click();
-      }, 400);
+      const downloadSection = document.getElementById('download');
+      if (downloadSection) {
+        downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        downloadBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     });
   });
 
