@@ -465,11 +465,12 @@ code {
 }
 
 .phone-frame {
-  width: 285px;
-  height: 600px;
+  width: 290px;
+  aspect-ratio: 575 / 1280;
+  height: auto;
   background-color: #0b090e;
-  border: 10px solid #2B2930;
-  border-radius: 40px;
+  border: 9px solid #2B2930;
+  border-radius: 38px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75),
               0 0 50px rgba(208, 188, 255, 0.16);
   position: relative;
@@ -483,18 +484,19 @@ code {
 }
 
 .screen-content {
-  flex: 1;
+  width: 100%;
+  height: 100%;
   position: relative;
   background-color: #121016;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: 26px;
+  display: flex;
 }
 
 .mockup-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: fill;
   transition: transform 400ms ease;
   display: block;
 }
@@ -673,7 +675,7 @@ code {
 }
 
 .screenshot-slide {
-  flex: 0 0 260px;
+  flex: 0 0 240px;
   scroll-snap-align: center;
 }
 
@@ -695,7 +697,8 @@ code {
 
 .screen-img-box {
   width: 100%;
-  height: 480px;
+  aspect-ratio: 575 / 1280;
+  height: auto;
   background-color: #0d0c11;
   overflow: hidden;
   position: relative;
@@ -704,8 +707,7 @@ code {
 .screen-img-box img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: fill;
   transition: transform 300ms ease;
   display: block;
 }
@@ -1741,8 +1743,11 @@ code {
   }
 
   .phone-frame {
-    width: 270px;
-    height: 560px;
+    width: 260px;
+    aspect-ratio: 575 / 1280;
+    height: auto;
+    border-radius: 34px;
+    border-width: 8px;
   }
 }
 
